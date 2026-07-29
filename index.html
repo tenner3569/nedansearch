@@ -547,14 +547,17 @@
 <script>
   /* ── Affiliate tags ── */
   const AF = {
-    amazon:  'YOUR-AMAZON-TAG-22',
-    rakuten: 'YOUR-RAKUTEN-ID',
-    yahoo:   'YOUR-YAHOO-ID'
-  };
+  amazon:  'YOUR-AMAZON-TAG-22',
+  rakuten: '3bba5f17.80e594ca.3bba5f18.b70bd65a',
+  yahoo:   'YOUR-YAHOO-ID'
+};
+  const YAHOO_SID = '3776919';
+  const YAHOO_PID = '892668280';
+
   const url = {
     amazon:  (asin, kw) => `https://www.amazon.co.jp/dp/${asin}?tag=${AF.amazon}`,
     rakuten: (asin, kw) => `https://search.rakuten.co.jp/search/mall/${encodeURIComponent(kw)}/?afid=${AF.rakuten}`,
-    yahoo:   (asin, kw) => `https://shopping.yahoo.co.jp/search?p=${encodeURIComponent(kw)}&affiliate_id=${AF.yahoo}`
+    yahoo:   (asin, kw) => `https://shopping.yahoo.co.jp/search?p=${encodeURIComponent(kw)}&sid=${YAHOO_SID}&pid=${YAHOO_PID}`
   };
 
   /* ── Demo data ── */
