@@ -635,72 +635,82 @@
     doSearch();
   }
 
-  async function doSearch() {
+ async function doSearch() {
     const keyword = document.getElementById('searchInput').value.trim();
     if (!keyword) return;
 
-    // ヘッダー検索バーを表示
     document.getElementById('headerSearch').classList.add('visible');
     document.getElementById('headerInput').value = keyword;
-
-    // ヒーローとトレンドを隠す
     document.getElementById('heroSection').style.display = 'none';
     document.getElementById('trendingSection').style.display = 'none';
 
-    // ローディング
     const bar = document.getElementById('loadingBar');
     bar.style.display = 'block';
     document.getElementById('resultsList').innerHTML = '';
     document.getElementById('resultsHeader').classList.remove('visible');
-
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    await new Promise(r => setTimeout(r, 650));
-    bar.style.display = 'none';
 
-    // 結果ヘッダー
-    const header = document.getElementById('resultsHeader');
-    header.classList.add('visible');
+    try {
+      const [rakutenRes, yahooRes] = await Promise.allSettled([
+        fetch(`https://nedansearch-api.vercel.app/api/search?keyword=${encodeURIComponent(keyword)}`),
+        fetch(`https://nedansearch-api.vercel.app/api/yahoo?keyword=${encodeURIComponent(keyword)}`)
+      ]);
 
-    // 全商品×全ショップをフラットに展開して価格順ソート
-    const allRows = [];
-    DEMO.forEach(p => {
-      p.shops.forEach(s => {
-        allRows.push({ ...s, title: p.title, image: p.image, asin: p.asin, kw: p.kw });
+      let allItems = [];
+      if (rakutenRes.status === 'fulfilled') {
+        const data = await rakutenRes.value.json();
+        if (data.items) allItems = allItems.concat(data.items);
+      }
+      if (yahooRes.status === 'fulfilled') {
+        const data = await yahooRes.value.json();
+        if (data.items) allItems = allItems.concat(data.items);
+      }
+
+      allItems.sort((a, b) => a.price - b.price);
+
+      bar.style.display = 'none';
+      const header = document.getElementById('resultsHeader');
+      header.classList.add('visible');
+      document.getElementById('resultsHeaderText').innerHTML =
+        `「<strong>${keyword}</strong>」の検索結果 <span style="color:var(--ink-3)">${allItems.length}件（安い順）</span>`;
+
+      const list = document.getElementById('resultsList');
+      if (allItems.length === 0) {
+        list.innerHTML = '<div style="padding:40px 20px;text-align:center;color:var(--ink-3)">商品が見つかりませんでした</div>';
+        return;
+      }
+
+      const wrap = document.createElement('div');
+      wrap.className = 'flat-list';
+      allItems.forEach((s, i) => {
+        const isBest = i === 0;
+        const badgeLabelMap = { amazon:'アマゾン', rakuten:'楽天', yahoo:'ヤフー' };
+        const row = document.createElement('a');
+        row.className = `flat-row${isBest ? ' best' : ''}`;
+        row.href = s.url;
+        row.target = '_blank';
+        row.rel = 'nofollow sponsored';
+        row.innerHTML = `
+          <span class="badge badge-${s.platform}">${badgeLabelMap[s.platform] || s.platform}</span>
+          <div class="flat-info">
+            <span class="flat-shop">${s.shopName}</span>
+            <span class="flat-title">${s.title}</span>
+          </div>
+          <div class="price-right">
+            <span class="price-num">¥${s.price.toLocaleString()}</span>
+            <span class="price-tax">税込</span>
+          </div>
+          <span class="row-arrow">›</span>
+        `;
+        wrap.appendChild(row);
       });
-    });
-    allRows.sort((a, b) => a.price - b.price);
+      list.appendChild(wrap);
 
-    document.getElementById('resultsHeaderText').innerHTML =
-      `「<strong>${keyword}</strong>」の検索結果 <span style="color:var(--ink-3)">${allRows.length}件（安い順）</span>`;
-
-    // フラットリスト生成
-    const list = document.getElementById('resultsList');
-    const wrap = document.createElement('div');
-    wrap.className = 'flat-list';
-
-    allRows.forEach((s, i) => {
-      const isBest = i === 0;
-      const row = document.createElement('a');
-      row.className = `flat-row${isBest ? ' best' : ''}`;
-      row.href = url[s.key](s.asin, s.kw);
-      row.target = '_blank';
-      row.rel = 'nofollow sponsored';
-      row.innerHTML = `
-        <span class="badge badge-${s.key}">${badgeLabel[s.key]}</span>
-        <div class="flat-info">
-          <span class="flat-shop">${s.name}</span>
-          <span class="flat-title">${s.title}</span>
-        </div>
-        <div class="price-right">
-          <span class="price-num">¥${s.price.toLocaleString()}</span>
-          <span class="price-tax">税込</span>
-        </div>
-        <span class="row-arrow">›</span>
-      `;
-      wrap.appendChild(row);
-    });
-
-    list.appendChild(wrap);
+    } catch (e) {
+      bar.style.display = 'none';
+      document.getElementById('resultsList').innerHTML =
+        `<div style="padding:40px 20px;text-align:center;color:red">エラー: ${e.message}</div>`;
+    }
   }
 
   // Enterキー対応
