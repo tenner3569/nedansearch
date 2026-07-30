@@ -749,7 +749,15 @@
         `<div style="padding:40px 20px;text-align:center;color:red">エラー: ${e.message}</div>`;
     }
   }
-
+// URLパラメータから自動検索
+  window.addEventListener('load', () => {
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get('jan') || params.get('code');
+    if (code) {
+      document.getElementById('searchInput').value = code;
+      doSearch();
+    }
+  });
   // Enterキー対応
   ['searchInput', 'headerInput'].forEach(id => {
     document.getElementById(id)?.addEventListener('keydown', e => {
