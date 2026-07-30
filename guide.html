@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>設定ガイド — ねだんサーチ × せどりすとプレミアム</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:      #F9FAFB;
+    --card:    #FFFFFF;
+    --ink:     #111827;
+    --ink-2:   #374151;
+    --ink-3:   #6B7280;
+    --blue:    #2563EB;
+    --orange:  #F97316;
+    --green:   #16A34A;
+    --red:     #DC2626;
+    --border:  #E5E7EB;
+    --code-bg: #1E293B;
+    --code-fg: #7DD3FC;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  header {
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    padding: 0 20px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo {
+    font-size: 16px;
+    font-weight: 900;
+    color: var(--blue);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+  }
+  .logo-icon {
+    width: 26px; height: 26px;
+    background: var(--blue);
+    border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 13px;
+  }
+  .back-link {
+    font-size: 13px;
+    color: var(--ink-3);
+    text-decoration: none;
+  }
+
+  .hero {
+    background: var(--blue);
+    color: #fff;
+    padding: 40px 20px 36px;
+    text-align: center;
+  }
+  .hero-tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    padding: 4px 16px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 14px;
+  }
+  .hero h1 {
+    font-size: 22px;
+    font-weight: 900;
+    line-height: 1.35;
+    margin-bottom: 10px;
+  }
+  .hero p {
+    font-size: 13px;
+    opacity: 0.8;
+  }
+
+  main {
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 20px 16px 80px;
+  }
+
+  /* Step card */
+  .step-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+
+  .step-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 18px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .step-num {
+    width: 34px; height: 34px;
+    border-radius: 10px;
+    background: var(--blue);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 900;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .step-num.orange { background: var(--orange); }
+  .step-num.green  { background: var(--green); }
+
+  .step-title { font-size: 16px; font-weight: 900; }
+  .step-sub   { font-size: 12px; color: var(--ink-3); margin-top: 2px; }
+
+  .step-body { padding: 16px 18px; }
+
+  /* Mock phone screen */
+  .phone-mock {
+    background: #1C1C1E;
+    border-radius: 14px;
+    overflow: hidden;
+    margin: 12px 0;
+    border: 1px solid #333;
+  }
+  .phone-nav {
+    background: #2C2C2E;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid #3C3C3E;
+  }
+  .phone-nav-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    flex: 1;
+    text-align: center;
+  }
+  .phone-nav-btn {
+    font-size: 12px;
+    color: #0A84FF;
+    font-weight: 500;
+  }
+  .phone-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 13px 16px;
+    border-bottom: 1px solid #2C2C2E;
+    font-size: 14px;
+    color: #fff;
+  }
+  .phone-row:last-child { border-bottom: none; }
+  .phone-row.highlight {
+    background: rgba(255, 59, 48, 0.15);
+    border: 1px solid rgba(255, 59, 48, 0.4);
+    border-radius: 8px;
+    margin: 4px 8px;
+  }
+  .phone-row-right { color: #636366; font-size: 13px; }
+  .phone-row-arrow { color: #636366; }
+  .phone-toggle-on {
+    background: #30D158;
+    width: 44px; height: 26px;
+    border-radius: 13px;
+    position: relative;
+  }
+  .phone-toggle-on::after {
+    content: '';
+    position: absolute;
+    right: 3px; top: 3px;
+    width: 20px; height: 20px;
+    background: #fff;
+    border-radius: 50%;
+  }
+
+  /* Input field mock */
+  .input-mock {
+    background: #1C1C1E;
+    border-radius: 14px;
+    overflow: hidden;
+    margin: 12px 0;
+    border: 1px solid #333;
+  }
+  .input-section-title {
+    font-size: 11px;
+    color: #636366;
+    padding: 12px 16px 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .input-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid #2C2C2E;
+  }
+  .input-row:last-child { border-bottom: none; }
+  .input-label { font-size: 14px; color: #fff; }
+  .input-value { font-size: 14px; color: #636366; }
+  .input-value.highlight-value {
+    color: #0A84FF;
+    font-size: 12px;
+    max-width: 180px;
+    text-align: right;
+    word-break: break-all;
+  }
+  .input-value.green-value { color: #30D158; }
+
+  /* Code block */
+  .code-block {
+    background: var(--code-bg);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .code-text {
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    color: var(--code-fg);
+    word-break: break-all;
+    flex: 1;
+  }
+  .copy-btn {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    font-family: 'Noto Sans JP', sans-serif;
+    transition: background 0.2s;
+    flex-shrink: 0;
+  }
+  .copy-btn:active { background: rgba(255,255,255,0.2); }
+
+  /* Info box */
+  .info-box {
+    background: #EFF6FF;
+    border: 1px solid #BFDBFE;
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 13px;
+    color: #1E40AF;
+    margin: 10px 0;
+    line-height: 1.6;
+  }
+  .info-box.orange {
+    background: #FFF7ED;
+    border-color: #FED7AA;
+    color: #9A3412;
+  }
+  .info-box.green {
+    background: #F0FDF4;
+    border-color: #BBF7D0;
+    color: #166534;
+  }
+
+  /* Tap indicator */
+  .tap-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,59,48,0.1);
+    border: 1px solid rgba(255,59,48,0.3);
+    color: var(--red);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    margin: 6px 0;
+  }
+
+  /* Flow */
+  .flow {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 12px 0;
+  }
+  .flow-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: var(--bg);
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .flow-arrow {
+    text-align: center;
+    color: var(--ink-3);
+    font-size: 16px;
+  }
+
+  /* Result preview */
+  .result-preview {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 12px 0;
+    background: var(--card);
+  }
+  .result-row {
+    display: flex;
+    align-items: center;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    gap: 10px;
+    font-size: 13px;
+  }
+  .result-row:last-child { border-bottom: none; }
+  .result-row.best { background: #FFF7ED; border-left: 3px solid var(--orange); }
+  .badge {
+    font-size: 10px;
+    font-weight: 900;
+    padding: 3px 8px;
+    border-radius: 5px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .badge-yahoo   { background: #1460BF; color: #fff; }
+  .badge-rakuten { background: #BF0000; color: #fff; }
+  .result-shop  { flex: 1; color: var(--ink-2); font-weight: 700; font-size: 12px; }
+  .result-price { font-weight: 900; color: var(--ink); }
+  .result-row.best .result-price { color: var(--orange); }
+
+  /* CTA */
+  .cta-box {
+    background: linear-gradient(135deg, var(--blue), #1D4ED8);
+    border-radius: 16px;
+    padding: 28px 20px;
+    text-align: center;
+    color: #fff;
+    margin-bottom: 20px;
+  }
+  .cta-box h3 { font-size: 18px; font-weight: 900; margin-bottom: 8px; }
+  .cta-box p  { font-size: 13px; opacity: 0.8; margin-bottom: 20px; }
+  .cta-btn {
+    display: inline-block;
+    background: #fff;
+    color: var(--blue);
+    font-weight: 900;
+    font-size: 15px;
+    padding: 12px 32px;
+    border-radius: 10px;
+    text-decoration: none;
+  }
+
+  /* FAQ */
+  .faq-item {
+    border-bottom: 1px solid var(--border);
+    padding: 14px 0;
+  }
+  .faq-item:last-child { border-bottom: none; }
+  .faq-q {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 6px;
+    display: flex;
+    gap: 8px;
+  }
+  .faq-q::before { content: 'Q'; color: var(--blue); font-weight: 900; flex-shrink: 0; }
+  .faq-a { font-size: 13px; color: var(--ink-2); padding-left: 20px; }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--ink-3);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin: 24px 0 10px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="index.html">
+    <div class="logo-icon">¥</div>
+    ねだんサーチ
+  </a>
+  <a class="back-link" href="index.html">← 検索に戻る</a>
+</header>
+
+<div class="hero">
+  <div class="hero-tag">📱 設定ガイド</div>
+  <h1>せどりすとプレミアムと<br>連携する方法</h1>
+  <p>バーコードをスキャンするだけで楽天・Yahoo!の最安値が即表示</p>
+</div>
+
+<main>
+
+  <!-- 完成イメージ -->
+  <div class="step-card">
+    <div class="step-card-header">
+      <div class="step-num" style="background:var(--ink-3)">👀</div>
+      <div>
+        <div class="step-title">完成するとこうなります</div>
+        <div class="step-sub">設定後の動作イメージを確認</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="flow">
+        <div class="flow-item">📷 バーコードをスキャン</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-item">👆 ねだんサーチボタンをタップ</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-item">💰 最安値が安い順に表示</div>
+      </div>
+      <p style="font-size:12px;color:var(--ink-3);margin-bottom:8px">表示イメージ：</p>
+      <div class="result-preview">
+        <div class="result-row best">
+          <span class="badge badge-yahoo">ヤフー</span>
+          <span class="result-shop">キタバドラッグ</span>
+          <span class="result-price">¥344</span>
+        </div>
+        <div class="result-row">
+          <span class="badge badge-yahoo">ヤフー</span>
+          <span class="result-shop">ドラッグ ヒーロー ヤフー店</span>
+          <span class="result-price">¥344</span>
+        </div>
+        <div class="result-row">
+          <span class="badge badge-rakuten">楽天</span>
+          <span class="result-shop">ニシムタ 楽天市場店</span>
+          <span class="result-price">¥398</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">設定手順</div>
+
+  <!-- STEP 1 -->
+  <div class="step-card">
+    <div class="step-card-header">
+      <div class="step-num">1</div>
+      <div>
+        <div class="step-title">アプリケーション設定を開く</div>
+        <div class="step-sub">左上のメニューから進みます</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <p style="font-size:13px;color:var(--ink-2);margin-bottom:10px">せどりすとプレミアムを起動して、左上の「≡」メニューをタップします。</p>
+      <div class="phone-mock">
+        <div class="phone-nav">
+          <span class="phone-nav-btn">≡</span>
+          <span class="phone-nav-title">Sedolist Premium 3</span>
+        </div>
+        <div class="phone-row">🔍 検索リスト <span class="phone-row-arrow">›</span></div>
+        <div class="phone-row">⭐ ウォッチリスト <span class="phone-row-arrow">›</span></div>
+        <div class="phone-row">🛒 仕入リスト <span class="phone-row-arrow">›</span></div>
+        <div class="phone-row" style="background:rgba(255,59,48,0.15);border:1px solid rgba(255,59,48,0.4);border-radius:8px;margin:4px 8px;padding:13px 8px;">
+          ⚙️ <strong style="color:#fff">アプリケーション設定</strong>
+          <span style="background:var(--red);color:#fff;font-size:11px;font-weight:700;padding:2px 10px;border-radius:10px;">←タップ</span>
+        </div>
+        <div class="phone-row">⚠️ アラート設定一覧 <span class="phone-row-arrow">›</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step-card">
+    <div class="step-card-header">
+      <div class="step-num">2</div>
+      <div>
+        <div class="step-title">検索リスト拡張ボタン設定</div>
+        <div class="step-sub">アプリケーション設定の中にあります</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <p style="font-size:13px;color:var(--ink-2);margin-bottom:10px">「アプリケーション設定」を下にスクロールして「検索リスト拡張ボタン設定」をタップします。</p>
+      <div class="phone-mock">
+        <div class="phone-nav">
+          <span class="phone-nav-btn">＜ 戻る</span>
+          <span class="phone-nav-title">アプリケーション設定</span>
+        </div>
+        <div class="phone-row">API設定 <span class="phone-row-arrow">›</span></div>
+        <div class="phone-row">AmazonB2B設定 <span class="phone-row-arrow">›</span></div>
+        <div class="phone-row">アラート設定 <span class="phone-row-arrow">›</span></div>
+        <div class="phone-row" style="background:rgba(255,59,48,0.15);border:1px solid rgba(255,59,48,0.4);border-radius:8px;margin:4px 8px;padding:13px 8px;">
+          <strong style="color:#fff">検索リスト拡張ボタン設定</strong>
+          <span style="background:var(--red);color:#fff;font-size:11px;font-weight:700;padding:2px 10px;border-radius:10px;">←タップ</span>
+        </div>
+        <div class="phone-row">仕入れリスト拡張ボタン設定 <span class="phone-row-arrow">›</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step-card">
+    <div class="step-card-header">
+      <div class="step-num">3</div>
+      <div>
+        <div class="step-title">編集→「＋」で新規追加</div>
+        <div class="step-sub">右上「編集」→左上「＋」の順にタップ</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="phone-mock">
+        <div class="phone-nav">
+          <span class="phone-nav-btn">＜ 戻る</span>
+          <span class="phone-nav-title">検索リスト拡張ボタン一覧</span>
+          <span style="background:var(--red);color:#fff;font-size:11px;font-weight:700;padding:2px 10px;border-radius:10px;">①編集</span>
+        </div>
+        <div class="phone-row">Amazon直リンク <div class="phone-toggle-on"></div></div>
+        <div class="phone-row">Keepa <div class="phone-toggle-on"></div></div>
+        <div class="phone-row">ウォッチリスト <div class="phone-toggle-on"></div></div>
+      </div>
+
+      <div class="info-box" style="margin-top:10px">
+        💡 「編集」をタップすると左上に「＋」ボタンが現れます。そこをタップしてください。
+      </div>
+
+      <div class="phone-mock" style="margin-top:10px">
+        <div class="phone-nav">
+          <span style="background:var(--red);color:#fff;font-size:11px;font-weight:700;padding:2px 10px;border-radius:10px;">②＋</span>
+          <span class="phone-nav-title">検索リスト拡張ボタン一覧</span>
+          <span class="phone-nav-btn">完了</span>
+        </div>
+        <div class="phone-row">🔴 Amazon直リンク <span style="color:#636366">≡</span></div>
+        <div class="phone-row">🔴 Keepa <span style="color:#636366">≡</span></div>
+        <div class="phone-row">🔴 ウォッチリスト <span style="color:#636366">≡</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="step-card">
+    <div class="step-card-header">
+      <div class="step-num orange">4</div>
+      <div>
+        <div class="step-title">ボタンの情報を入力する</div>
+        <div class="step-sub">以下の通りに設定してください</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="input-mock">
+        <div class="input-section-title">基本項目</div>
+        <div class="input-row">
+          <span class="input-label">このボタンを表示する</span>
+          <span class="input-value green-value">ON ●</span>
+        </div>
+        <div class="input-section-title">ボタン設定</div>
+        <div class="input-row">
+          <span class="input-label">ボタン種別</span>
+          <span class="input-value">ユーザー定義</span>
+        </div>
+        <div class="input-row">
+          <span class="input-label">表示先</span>
+          <span class="input-value">セル内ウィンドウ</span>
+        </div>
+        <div class="input-section-title">カスタム設定</div>
+        <div class="input-row">
+          <span class="input-label">ボタン設定名</span>
+          <span class="input-value" style="color:#fff">ねだんサーチ</span>
+        </div>
+        <div class="input-row">
+          <span class="input-label">表示アイコン</span>
+          <span class="input-value">お好みで</span>
+        </div>
+        <div class="input-row">
+          <span class="input-label">設定URL</span>
+          <span class="input-value highlight-value">↓ 下記URLをコピー</span>
+        </div>
+        <div class="input-row">
+          <span class="input-label">パラメータエンコード</span>
+          <span class="input-value" style="color:#fff">UTF-8</span>
+        </div>
+      </div>
+
+      <p style="font-size:13px;font-weight:700;color:var(--ink);margin:14px 0 6px">設定URLをコピーして貼り付けてください</p>
+      <div class="code-block">
+        <span class="code-text" id="urlText">https://tenner3569.github.io/nedansearch?jan={jan}</span>
+        <button class="copy-btn" onclick="copyUrl()">コピー</button>
+      </div>
+
+      <div class="info-box orange">
+        ⚠️ <strong>{jan}</strong> の部分はそのまま入力してください。せどりすとが自動でJANコードに置き換えます。書き換え不要です。
+      </div>
+
+      <div class="info-box">
+        💡 「表示先」を「セル内ウィンドウ」にするとアプリを閉じずに価格確認できて便利です。
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 5 -->
+  <div class="step-card">
+    <div class="step-card-header">
+      <div class="step-num green">5</div>
+      <div>
+        <div class="step-title">保存して完了！</div>
+        <div class="step-sub">右上の「保存」をタップして設定完了</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="phone-mock">
+        <div class="phone-nav">
+          <span class="phone-nav-btn">キャンセル</span>
+          <span class="phone-nav-title">新規カスタムボタン</span>
+          <span style="background:var(--green);color:#fff;font-size:11px;font-weight:700;padding:2px 10px;border-radius:10px;">保存←</span>
+        </div>
+        <div class="phone-row">ボタン設定名 <span style="color:#fff;font-size:13px">ねだんサーチ</span></div>
+        <div class="phone-row">設定URL <span style="color:#0A84FF;font-size:10px">...nedansearch?jan={jan}</span></div>
+      </div>
+
+      <div class="info-box green" style="margin-top:12px">
+        ✅ これで設定完了！次回からバーコードをスキャンして「ねだんサーチ」ボタンをタップするだけです。
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="step-card">
+    <div class="step-card-header">
+      <div class="step-num" style="background:var(--ink-3); font-size:18px">？</div>
+      <div>
+        <div class="step-title">よくある質問</div>
+        <div class="step-sub">困ったときはここを確認</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="faq-item">
+        <div class="faq-q">結果が出ない商品がある</div>
+        <div class="faq-a">楽天・Yahoo!に出品がない商品は表示されません。下部の「Amazonでも探す」ボタンをお使いください。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">在庫なしのショップは表示される？</div>
+        <div class="faq-a">表示されません。在庫ありのショップのみ自動で絞り込んで表示します。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">ASINでも検索できますか？</div>
+        <div class="faq-a">できます。ASINを入力すると自動でJANコードに変換して検索します。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">価格はリアルタイム？</div>
+        <div class="faq-a">はい。検索のたびに各サイトから最新価格を取得しています。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-box">
+    <h3>設定はできましたか？</h3>
+    <p>バーコードをスキャンして最安値を確認してみましょう</p>
+    <a class="cta-btn" href="index.html">ねだんサーチを開く →</a>
+  </div>
+
+</main>
+
+<script>
+  function copyUrl() {
+    const text = document.getElementById('urlText').textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.querySelector('.copy-btn');
+      btn.textContent = 'コピー済み！';
+      btn.style.background = 'rgba(34,197,94,0.25)';
+      setTimeout(() => {
+        btn.textContent = 'コピー';
+        btn.style.background = 'rgba(255,255,255,0.12)';
+      }, 2000);
+    });
+  }
+</script>
+</body>
+</html>
