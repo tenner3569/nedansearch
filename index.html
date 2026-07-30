@@ -469,6 +469,28 @@
     .results-header { padding-left: 40px; }
     .trending-section { padding: 24px 40px; max-width: 640px; margin: 0 auto; }
   }
+  /* Amazon リンクボタン */
+  .amazon-btn-wrap {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 16px 24px;
+  }
+  .amazon-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 14px;
+    background: #FF9900;
+    color: #000;
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .amazon-btn:active { opacity: 0.8; }
 </style>
 </head>
 <body>
@@ -537,6 +559,7 @@
 <!-- 検索結果 -->
 <div class="results-list" id="resultsList"></div>
 
+  
 <!-- Footer -->
 <footer>
   <div>本サービスはAmazonアソシエイト・楽天アフィリエイト・Yahoo!ショッピングのAPIを利用しています</div>
@@ -708,6 +731,17 @@
         wrap.appendChild(row);
       });
       list.appendChild(wrap);
+      // Amazonリンクボタン追加
+      const amazonWrap = document.createElement('div');
+      amazonWrap.className = 'amazon-btn-wrap';
+      amazonWrap.innerHTML = `
+        <a class="amazon-btn"
+           href="https://www.amazon.co.jp/s?k=${encodeURIComponent(keyword)}&tag=tenner3569-22"
+           target="_blank" rel="nofollow sponsored">
+          🛒 Amazonでも探す
+        </a>
+      `;
+      list.appendChild(amazonWrap);
 
     } catch (e) {
       bar.style.display = 'none';
