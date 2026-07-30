@@ -730,12 +730,8 @@
         const row = document.createElement('a');
         row.className = `flat-row${isBest ? ' best' : ''}`;
         row.href = s.url;
-        row.target = '_blank';
+row.target = '_self';
 row.rel = 'nofollow sponsored';
-row.addEventListener('click', function(e) {
-  e.preventDefault();
-  window.open(this.href, '_blank');
-});
         row.innerHTML = `
           <span class="badge badge-${s.platform}">${badgeLabelMap[s.platform] || s.platform}</span>
           <div class="flat-info">
