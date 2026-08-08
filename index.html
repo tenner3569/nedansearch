@@ -44,22 +44,29 @@
   }
 
   .logo {
-    font-size: 18px;
+    font-size: 19px;
     font-weight: 900;
-    color: var(--blue);
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 2px;
     flex-shrink: 0;
     text-decoration: none;
+    letter-spacing: -0.3px;
   }
   .logo-icon {
-    width: 28px; height: 28px;
-    background: var(--blue);
-    border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    color: #fff;
-    font-size: 14px;
+    width: 30px; height: 30px;
+    flex-shrink: 0;
+    margin-right: 4px;
+  }
+  .logo-text-blue { color: var(--blue); }
+  .logo-text-orange { color: var(--orange); }
+  .logo-beta {
+    font-size: 10px;
+    font-weight: 700;
+    color: #93C5FD;
+    margin-left: 2px;
+    align-self: flex-end;
+    margin-bottom: 2px;
   }
 
   /* ヘッダー内検索（検索後に表示） */
@@ -497,7 +504,6 @@
 
 <!-- Header -->
 <header>
-  <header>
   <a class="logo" href="#">
     <svg class="logo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
       <circle cx="42" cy="42" r="30" fill="none" stroke="#2563EB" stroke-width="9"/>
